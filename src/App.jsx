@@ -1,11 +1,16 @@
-function App() {
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar/Navbar";
+
+const App = () => {
   return (
-    <div className="min-h-screen border flex items-center justify-center bg-red-400">
-      <h1 className="text-4xl font-bold text-red-500">
-        Code-a-Nova Hackathon Portal
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
