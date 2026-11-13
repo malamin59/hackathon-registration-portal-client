@@ -1,0 +1,29 @@
+:root {
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 5rem;
+
+  /* Container */
+  --container-max: 1280px;
+  --page-gutter: clamp(1rem, 5vw, 2rem);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Colors */
+  --color-primary: #8B5CF6;
+  --color-background: #0B0B14;
+  --color-surface: #181825;
+  --color-text: #FFFFFF;
+  --color-text-muted: #A1A1AA;
+}
