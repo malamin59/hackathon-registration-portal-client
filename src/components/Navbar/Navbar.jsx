@@ -1,88 +1,42 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
-import {
-  AppBar,
-  Toolbar,
-  Container,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Button,
-} from "@mui/material";
-
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Toolbar, Container, Box } from "@mui/material";
 import NavbarLogo from "./NavbarLogo";
-import navLinks from "./NavbarLinks";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-
   return (
-    <AppBar position="static" color="inherit" elevation={1}>
+    <AppBar
+      position="sticky"
+      elevation={0}
+      sx={{
+        bgcolor: "transparent",
+        pt: 1,
+      }}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* Logo */}
-          <NavbarLogo />
-
-          {/* Desktop Navigation */}
-          <Box
+        <Box
+          sx={{
+            px: { xs: 2, md: 3 },
+            borderRadius: "20px",
+            bgcolor: "rgba(18, 18, 32, 0.92)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            backdropFilter: "blur(16px)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
+          }}
+        >
+          <Toolbar
+            disableGutters
             sx={{
-              flexGrow: 1,
-              justifyContent: "flex-end",
+              minHeight: { xs: 60, md: 64 },
               gap: 2,
-              display: { xs: "none", md: "flex" },
+              position: "relative",
             }}
           >
-            {navLinks.map((link) => (
-              <Button
-                key={link.path}
-                component={Link}
-                to={link.path}
-                variant={link.isButton ? "contained" : "text"}
-              >
-                {link.name}
-              </Button>
-            ))}
-          </Box>
-
-          {/* Mobile Menu Button */}
-          <Box sx={{ display: { xs: "flex", md: "none" }, ml: "auto" }}>
-            <IconButton
-              color="inherit"
-              onClick={handleOpenMenu}
-              aria-label="Open navigation menu"
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleCloseMenu}
-            >
-              {navLinks.map((link) => (
-                <MenuItem
-                  key={link.path}
-                  component={Link}
-                  to={link.path}
-                  onClick={handleCloseMenu}
-                >
-                  {link.name}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
+            <NavbarLogo />
+            <DesktopNav />
+            <MobileNav />
+          </Toolbar>
+        </Box>
       </Container>
     </AppBar>
   );

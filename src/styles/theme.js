@@ -1,24 +1,33 @@
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
+
     primary: {
-      main: "#6366F1",
-      dark: "#4F46E5",
-      light: "#818CF8",
+      main: "#8B5CF6",
+      dark: "#7C3AED",
+      light: "#A78BFA",
     },
+
     secondary: {
-      main: "#0F172A",
+      main: "#EC4899",
+      dark: "#DB2777",
+      light: "#F472B6",
     },
+
     background: {
-      default: "#F8FAFC",
-      paper: "#FFFFFF",
+      default: "#0B0B14",
+      paper: "#151522",
     },
+
     text: {
-      primary: "#0F172A",
-      secondary: "#64748B",
+      primary: "#FFFFFF",
+      secondary: "#A1A1AA",
     },
+
+    divider: "rgba(255,255,255,0.1)",
   },
 
   typography: {
@@ -40,15 +49,31 @@ const theme = createTheme({
   },
 
   shape: {
-    borderRadius: 10,
+    borderRadius: 12,
   },
 
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "#0B0B14",
+        },
+      },
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 10,
           padding: "10px 20px",
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: "none",
         },
       },
     },

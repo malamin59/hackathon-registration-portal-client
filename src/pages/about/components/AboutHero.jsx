@@ -1,4 +1,3 @@
-
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import {
@@ -106,9 +105,9 @@ const AboutHero = () => {
                 mb: 4,
               }}
             >
-              We combine software engineering, artificial intelligence,
-              and innovation to build meaningful digital solutions
-              and empower the next generation of technology leaders.
+              We combine software engineering, artificial intelligence, and
+              innovation to build meaningful digital solutions and empower the
+              next generation of technology leaders.
             </Typography>
 
             <Stack
@@ -137,27 +136,6 @@ const AboutHero = () => {
                 }}
               >
                 Let's Connect
-              </Button>
-
-              <Button
-                component="a"
-                href="#who-we-are"
-                variant="outlined"
-                sx={{
-                  px: 3.5,
-                  py: 1.5,
-                  borderRadius: 2,
-                  borderColor: "#454557",
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  textTransform: "none",
-                  "&:hover": {
-                    borderColor: "#A78BFA",
-                    bgcolor: "rgba(139,92,246,0.08)",
-                  },
-                }}
-              >
-                Explore More
               </Button>
             </Stack>
 
@@ -280,9 +258,7 @@ const AboutHero = () => {
                       {feature.icon}
                     </Box>
 
-                    <Typography
-                      sx={{ color: "#E4E4E7", fontWeight: 600 }}
-                    >
+                    <Typography sx={{ color: "#E4E4E7", fontWeight: 600 }}>
                       {feature.title}
                     </Typography>
                   </Stack>
