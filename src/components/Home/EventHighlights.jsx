@@ -1,22 +1,5 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
-
-const highlights = [
-  {
-    title: "Build Something Amazing",
-    description:
-      "Turn your creative ideas into real-world projects.",
-  },
-  {
-    title: "Collaborate & Learn",
-    description:
-      "Work with other passionate developers and learn together.",
-  },
-  {
-    title: "Showcase Your Skills",
-    description:
-      "Present your skills, creativity, and innovative solutions.",
-  },
-];
+import { highlightsData } from "../data/highlightsData";
 
 const EventHighlights = () => {
   return (
@@ -26,15 +9,12 @@ const EventHighlights = () => {
           Why Join Code-A-Nova?
         </Typography>
 
-        <Typography
-          textAlign="center"
-          sx={{ color: "#A1A1AA", mt: 2, mb: 6 }}
-        >
+        <Typography textAlign="center" sx={{ color: "#A1A1AA", mt: 2, mb: 6 }}>
           Explore the opportunities waiting for you.
         </Typography>
 
         <Grid container spacing={3}>
-          {highlights.map((item) => (
+          {highlightsData.map((item) => (
             <Grid size={{ xs: 12, md: 4 }} key={item.title}>
               <Box
                 sx={{
