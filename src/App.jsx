@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
 import theme from "./styles/theme";
 import About from "./pages/about/About";
-
+import Contact from "./pages/contact/Contact";
 
 const App = () => {
   return (
@@ -15,7 +15,8 @@ const App = () => {
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About/>} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
         </Routes>
       </BrowserRouter>
