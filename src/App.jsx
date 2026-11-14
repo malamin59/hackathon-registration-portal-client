@@ -9,6 +9,7 @@ import Contact from "./pages/contact/Contact";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/login";
 import VerifyOTP from "./pages/auth/VerifyOTP";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -16,13 +17,14 @@ const App = () => {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/verify-otp" element={<VerifyOTP />} />
           </Route>
         </Routes>
       </BrowserRouter>
