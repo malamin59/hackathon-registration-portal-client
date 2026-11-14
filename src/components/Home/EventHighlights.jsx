@@ -1,43 +1,52 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { highlightsData } from "../data/highlightsData";
+import Container from "../common/Container";
+import Card from "../common/Card";
+import { tracks } from "../data/tracks";
 
 const EventHighlights = () => {
   return (
-    <Box sx={{ bgcolor: "#0B0B14", color: "#FFFFFF", py: 10 }}>
-      <Container maxWidth="lg">
-        <Typography variant="h3" fontWeight={700} textAlign="center">
-          Why Join Code-A-Nova?
-        </Typography>
+    <section
+      id="events"
+      className="border-t border-white/5 bg-[#090912] py-12 text-white sm:py-24"
+    >
+      <Container>
+        {/* Section Header */}
+        <div className="mx-auto mb-14 max-w-2xl text-center sm:mb-16">
+          <span className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+            Hackathon Tracks
+          </span>
 
-        <Typography textAlign="center" sx={{ color: "#A1A1AA", mt: 2, mb: 6 }}>
-          Explore the opportunities waiting for you.
-        </Typography>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            Explore Innovation <span className="text-sky-400">Domains</span>
+          </h2>
 
-        <Grid container spacing={3}>
-          {highlightsData.map((item) => (
-            <Grid size={{ xs: 12, md: 4 }} key={item.title}>
-              <Box
-                sx={{
-                  p: 4,
-                  height: "100%",
-                  bgcolor: "#181825",
-                  border: "1px solid #2D2D3D",
-                  borderRadius: 3,
-                }}
-              >
-                <Typography variant="h5" fontWeight={600} mb={2}>
-                  {item.title}
-                </Typography>
+          <p className="mt-4 text-sm leading-relaxed text-gray-400 sm:text-base">
+            Choose a track that aligns with your team's strengths and build a
+            working prototype within 48 hours.
+          </p>
+        </div>
 
-                <Typography sx={{ color: "#A1A1AA", lineHeight: 1.8 }}>
-                  {item.description}
-                </Typography>
-              </Box>
-            </Grid>
+        {/* Track Cards */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {tracks.map(({ icon: Icon, color, title, desc }) => (
+            <Card
+              key={title}
+              className="group flex h-full flex-col !border-white/10 !bg-white/[0.03] hover:!border-purple-500/50 hover:!bg-white/[0.06]"
+            >
+              {/* Icon */}
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 transition-transform duration-300 group-hover:scale-110">
+                <Icon className={`h-7 w-7 ${color}`} />
+              </div>
+
+              {/* Title */}
+              <h3 className="mb-3 text-lg font-semibold text-white">{title}</h3>
+
+              {/* Description */}
+              <p className="text-sm leading-relaxed text-gray-400">{desc}</p>
+            </Card>
           ))}
-        </Grid>
+        </div>
       </Container>
-    </Box>
+    </section>
   );
 };
 

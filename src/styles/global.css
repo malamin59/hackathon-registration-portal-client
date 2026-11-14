@@ -1,15 +1,23 @@
+
 @import "./variables.css";
-@import "./spacing.css";
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 @import "tailwindcss";
-@layer theme, base, components, utilities;
 
-/* CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Global Reset */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -20,9 +28,23 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: "Inter", sans-serif;
   min-width: 320px;
   min-height: 100vh;
   background-color: #0B0B14;
   color: #FFFFFF;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
