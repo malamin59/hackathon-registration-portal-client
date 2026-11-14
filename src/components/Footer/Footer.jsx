@@ -1,36 +1,38 @@
-import { Box, Container, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Container, Grid } from "@mui/material";
 
-import navLinks from "../Navbar/NavbarLinks";
+import FooterBrand from "./components/FooterBrand";
+import FooterLinks from "./components/FooterLinks";
+import FooterBottom from "./components/FooterBottom";
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ bgcolor: "secondary.main", color: "#fff", py: 5 }}>
+    <Box
+      component="footer"
+      sx={{
+        bgcolor: "#080810",
+        pt: { xs: 8, md: 10 },
+        pb: 3,
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
       <Container maxWidth="xl">
-        <Typography variant="h5" fontWeight={700} mb={2}>
-          Code-a-Nova
-        </Typography>
+        {/* Main Footer */}
+        <Grid container spacing={{ xs: 6, md: 5 }}>
+          {/* Brand Section */}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <FooterBrand />
+          </Grid>
 
-        <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap", mb: 3 }}>
-          {navLinks.map((link) => (
-            <Typography
-              key={link.path}
-              component={Link}
-              to={link.path}
-              sx={{ color: "inherit", textDecoration: "none" }}
-            >
-              {link.name}
-            </Typography>
-          ))}
+          {/* Navigation Links */}
+          <Grid size={{ xs: 12, md: 8 }}>
+            <FooterLinks />
+          </Grid>
+        </Grid>
+
+        {/* Footer Bottom */}
+        <Box sx={{ mt: { xs: 7, md: 9 } }}>
+          <FooterBottom />
         </Box>
-
-        <Typography variant="body2" color="grey.400">
-          Contact: {/* Add official contact email */}
-        </Typography>
-
-        <Typography variant="body2" color="grey.400" mt={2}>
-          © {new Date().getFullYear()} Code-a-Nova. All rights reserved.
-        </Typography>
       </Container>
     </Box>
   );
