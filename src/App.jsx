@@ -8,6 +8,7 @@ import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/login";
+import VerifyOTP from "./pages/auth/VerifyOTP";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
           </Route>
         </Routes>
       </BrowserRouter>
