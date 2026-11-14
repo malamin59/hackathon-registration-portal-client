@@ -10,6 +10,7 @@ import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/login";
 import VerifyOTP from "./pages/auth/VerifyOTP";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Registration from "./pages/Registration";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Registration />} />
           </Route>
         </Routes>
       </BrowserRouter>
