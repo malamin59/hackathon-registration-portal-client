@@ -1,10 +1,15 @@
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
+
 import navLinks from "./NavbarLinks";
+import useAuth from "../../context/useAuth";
 
 const DesktopNav = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { isAuthenticated, logout } = useAuth();
 
   const mainLinks = navLinks.filter(
     (link) => !link.isButton && link.path !== "/login"
@@ -36,6 +41,11 @@ const DesktopNav = () => {
       bgcolor: "rgba(139,92,246,0.15)",
     },
   });
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
 
   return (
     <Box
@@ -84,35 +94,64 @@ const DesktopNav = () => {
           pointerEvents: "auto",
         }}
       >
-        {loginLink && (
-          <Button
-            component={Link}
-            to={loginLink.path}
-            sx={getLinkStyle(loginLink)}
-          >
-            {loginLink.name}
-          </Button>
-        )}
+        {isAuthenticated ? (
+          <>
+            <Button
+              component={Link}
+              to="/dashboard"
+              sx={getLinkStyle({
+                name: "Dashboard",
+                path: "/dashboard",
+              })}
+            >
+              Dashboard
+            </Button>
 
-        {signupLink && (
-          <Button
-            component={Link}
-            to={signupLink.path}
-            sx={{
-              px: 3,
-              py: 1.2,
-              borderRadius: 3,
-              color: "#FFFFFF",
-              fontWeight: 700,
-              textTransform: "none",
-              background: "linear-gradient(90deg, #7C3AED, #EC4899)",
-              "&:hover": {
-                background: "linear-gradient(90deg, #6D28D9, #DB2777)",
-              },
-            }}
-          >
-            {signupLink.name}
-          </Button>
+            <Button
+              onClick={handleLogout}
+              sx={getLinkStyle({
+                name: "Logout",
+                path: "/logout",
+              })}
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <>
+            {loginLink && (
+              <Button
+                component={Link}
+                to={loginLink.path}
+                sx={getLinkStyle(loginLink)}
+              >
+                {loginLink.name}
+              </Button>
+            )}
+
+            {signupLink && (
+              <Button
+                component={Link}
+                to={signupLink.path}
+                sx={{
+                  px: 3,
+                  py: 1.2,
+                  borderRadius: 3,
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  textTransform: "none",
+                  background:
+                    "linear-gradient(90deg, #7C3AED, #EC4899)",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(90deg, #6D28D9, #DB2777)",
+                  },
+                }}
+              >
+                {signupLink.name}
+              </Button>
+            )}
+          </>
         )}
       </Box>
     </Box>

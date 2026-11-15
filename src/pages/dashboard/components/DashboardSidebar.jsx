@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 
@@ -50,9 +50,11 @@ const DashboardSidebar = () => {
         </Box>
 
         <Box>
-          <Typography fontWeight={800} color="#F8FAFC" fontSize={17}>
-            Code-A-Nova
-          </Typography>
+          <Link to={'/'}>
+            <Typography fontWeight={800} color="#F8FAFC" fontSize={17}>
+              Code-A-Nova{" "}
+            </Typography>
+          </Link>
         </Box>
       </Stack>
 

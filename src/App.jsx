@@ -12,14 +12,15 @@ import VerifyOTP from "./pages/auth/VerifyOTP";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
+import AuthProvider from "./context/AuthContext";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
 
-const App = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route
             path="/dashboard"
@@ -29,6 +30,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
           <Route path="/verify-otp" element={<VerifyOTP />} />
 
           <Route element={<MainLayout />}>
@@ -37,6 +39,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+
             <Route
               path="/register"
               element={
@@ -46,11 +49,12 @@ const App = () => {
               }
             />
           </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
-};
+      </AuthProvider>
+    </BrowserRouter>
+  </ThemeProvider>
+);
 
 export default App;

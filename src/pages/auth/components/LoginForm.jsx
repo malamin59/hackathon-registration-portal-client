@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+
 import {
   Alert,
   Box,
@@ -15,18 +17,22 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import loginSchema from "../schemas/login.schema";
 import { inputStyles } from "./inputStyles";
-import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../services/authService";
+import useAuth from "../../../context/useAuth";
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -55,8 +61,8 @@ const LoginForm = () => {
         throw new Error("Authentication token was not returned.");
       }
 
-      // Save authentication token
-      localStorage.setItem("token", token);
+      // Update authentication state and save token
+      login(token);
 
       // Navigate to dashboard
       navigate("/dashboard", { replace: true });
@@ -64,7 +70,7 @@ const LoginForm = () => {
       setError(
         error.response?.data?.message ||
           error.message ||
-          "Something went wrong. Please try again.",
+          "Something went wrong. Please try again."
       );
     }
   };
@@ -74,6 +80,7 @@ const LoginForm = () => {
       <Stack spacing={1.5}>
         {/* Error Message */}
         {error && <Alert severity="error">{error}</Alert>}
+
         {/* Email */}
         <TextField
           fullWidth
@@ -87,7 +94,9 @@ const LoginForm = () => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailOutlinedIcon sx={{ fontSize: 16, color: "#666" }} />
+                  <EmailOutlinedIcon
+                    sx={{ fontSize: 16, color: "#666" }}
+                  />
                 </InputAdornment>
               ),
             },
@@ -107,13 +116,17 @@ const LoginForm = () => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <LockOutlinedIcon sx={{ fontSize: 16, color: "#666" }} />
+                  <LockOutlinedIcon
+                    sx={{ fontSize: 16, color: "#666" }}
+                  />
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={() => setShowPassword((prev) => !prev)}
+                    onClick={() =>
+                      setShowPassword((prev) => !prev)
+                    }
                     edge="end"
                     size="small"
                     sx={{ color: "#60A5FA" }}
