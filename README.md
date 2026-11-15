@@ -4,7 +4,27 @@ A responsive and user-friendly Hackathon Registration Portal built with React.js
 
 ## 🚀 Live Demo
 
-**Frontend:** https://codeanova-hackathon-portal.vercel.app/
+**Frontend:** [https://codeanova-hackathon-portal.vercel.app/](https://codeanova-hackathon-portal.vercel.app/)
+
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](public/screenshots/landing.png)
+
+### Signup Page
+![Signup Page](public/screenshots/signup.png)
+
+### OTP Verification
+![OTP Verification](public/screenshots/verify-otp.png)
+
+### Login Page
+![Login Page](public/screenshots/login.png)
+
+### Dashboard
+![Dashboard](public/screenshots/dashboard.png)
+
+### Hackathon Registration
+![Hackathon Registration](public/screenshots/registration.png)
 
 ## 🛠️ Technologies Used
 
@@ -40,6 +60,7 @@ A responsive and user-friendly Hackathon Registration Portal built with React.js
 ```text
 client/
 ├── public/
+│   └── screenshots/
 ├── src/
 │   ├── assets/
 │   ├── components/
@@ -54,7 +75,7 @@ client/
 │   ├── utils/
 │   ├── App.jsx
 │   └── main.jsx
-├── .env
+├── .env.example
 ├── .gitignore
 ├── index.html
 ├── package.json
@@ -62,20 +83,18 @@ client/
 └── vite.config.js
 ```
 
-*Note: Adjust the folder structure above if your actual project differs.*
-
 ## ⚙️ Installation & Setup
 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-frontend-repository-url>
+git clone <your-github-repository-url>
 ```
 
-### 2. Navigate to the project directory
+### 2. Navigate to the frontend directory
 
 ```bash
-cd client
+cd hackathon-registration-portal/client
 ```
 
 ### 3. Install dependencies
@@ -86,7 +105,9 @@ pnpm install
 
 ### 4. Configure environment variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the client directory.
+
+Copy the configuration from `.env.example`:
 
 ```env
 VITE_API_URL=http://localhost:5000/api
@@ -112,6 +133,8 @@ http://localhost:5173
 
 ## 🏗️ Build for Production
 
+To create an optimized production build:
+
 ```bash
 pnpm build
 ```
@@ -126,19 +149,19 @@ pnpm preview
 
 The frontend is deployed on **Vercel**.
 
-Live URL: https://codeanova-hackathon-portal.vercel.app/
+**Live URL:** [https://codeanova-hackathon-portal.vercel.app/](https://codeanova-hackathon-portal.vercel.app/)
 
 ## 🔗 Related Repository
 
-**Backend Repository:** <your-backend-repository-url>
+**Backend:** `../server` (included in the project repository).
 
 ## 👨‍💻 Author
 
 **Al Amin Patwary**
 
-- GitHub: https://github.com/malamin59
-- Portfolio: https://alamin-15553.web.app/
-- LinkedIn: https://www.linkedin.com/in/alamin-epb
+- **GitHub:** [https://github.com/malamin59](https://github.com/malamin59)
+- **Portfolio:** [https://alamin-15553.web.app/](https://alamin-15553.web.app/)
+- **LinkedIn:** [https://www.linkedin.com/in/alamin-epb](https://www.linkedin.com/in/alamin-epb)
 
 ---
 
