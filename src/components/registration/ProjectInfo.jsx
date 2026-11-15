@@ -1,4 +1,3 @@
-
 import {
   Sparkles,
   FolderKanban,
@@ -12,13 +11,11 @@ import {
 import FormSection from "./FormSection";
 
 const domainOptions = [
-  "AI / Machine Learning",
+  "AI/ML",
   "Web Development",
-  "Internet of Things (IoT)",
+  "IoT",
   "Cyber Security",
   "Blockchain",
-  "Cloud Computing",
-  "Data Science",
   "Other",
 ];
 
@@ -99,11 +96,7 @@ const ProjectInfo = ({ register, errors }) => {
               </option>
 
               {domainOptions.map((domain) => (
-                <option
-                  key={domain}
-                  value={domain}
-                  className="bg-[#171624]"
-                >
+                <option key={domain} value={domain} className="bg-[#171624]">
                   {domain}
                 </option>
               ))}
@@ -111,9 +104,7 @@ const ProjectInfo = ({ register, errors }) => {
           </div>
 
           {errors.domain && (
-            <p className="mt-2 text-xs text-red-400">
-              {errors.domain.message}
-            </p>
+            <p className="mt-2 text-xs text-red-400">{errors.domain.message}</p>
           )}
         </div>
 
@@ -133,9 +124,7 @@ const ProjectInfo = ({ register, errors }) => {
                 {field.required ? (
                   <span className="ml-1 text-pink-400">*</span>
                 ) : (
-                  <span className="ml-2 text-xs text-gray-500">
-                    Optional
-                  </span>
+                  <span className="ml-2 text-xs text-gray-500">Optional</span>
                 )}
               </label>
 
@@ -159,13 +148,9 @@ const ProjectInfo = ({ register, errors }) => {
               </div>
 
               {error ? (
-                <p className="mt-2 text-xs text-red-400">
-                  {error.message}
-                </p>
+                <p className="mt-2 text-xs text-red-400">{error.message}</p>
               ) : (
-                <p className="mt-2 text-xs text-gray-500">
-                  {field.helper}
-                </p>
+                <p className="mt-2 text-xs text-gray-500">{field.helper}</p>
               )}
             </div>
           );
@@ -174,15 +159,11 @@ const ProjectInfo = ({ register, errors }) => {
 
       {/* Info */}
       <div className="mt-8 flex items-start gap-3 rounded-xl border border-purple-500/10 bg-purple-500/[0.06] p-4">
-        <Globe
-          size={19}
-          className="mt-0.5 shrink-0 text-purple-400"
-        />
+        <Globe size={19} className="mt-0.5 shrink-0 text-purple-400" />
 
         <p className="text-xs leading-6 text-gray-400">
-          Ensure your project links are publicly accessible.
-          Our evaluation team should be able to review your
-          presentation and prototype.
+          Ensure your project links are publicly accessible. Our evaluation team
+          should be able to review your presentation and prototype.
         </p>
       </div>
     </FormSection>

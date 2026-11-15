@@ -19,7 +19,6 @@ const personalInfoSchema = z.object({
     .min(3, "Full name must be at least 3 characters")
     .regex(/^[A-Za-z ]+$/, "Name can only contain letters"),
 
-  email: z.string().trim().email("Please enter a valid email"),
 
   mobile: z
     .string()

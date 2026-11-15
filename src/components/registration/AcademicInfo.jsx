@@ -8,9 +8,7 @@ import {
 } from "lucide-react";
 
 import FormSection from "./FormSection";
-
 const collegeOptions = [
-  "Select your college",
   "IIT Delhi",
   "IIT Bombay",
   "IIT Madras",
@@ -24,8 +22,8 @@ const courseOptions = [
   "M.Tech",
   "BCA",
   "MCA",
-  "B.Sc",
-  "M.Sc",
+  "BSc",
+  "MSc",
   "Other",
 ];
 
@@ -33,10 +31,9 @@ const branchOptions = [
   "CSE",
   "IT",
   "ECE",
-  "EEE",
   "ME",
   "CE",
-  "AI & ML",
+  "EEE",
   "Other",
 ];
 
@@ -46,7 +43,6 @@ const yearOptions = [
   "3rd Year",
   "4th Year",
 ];
-
 const selectStyles =
   "w-full appearance-none rounded-xl border border-white/10 bg-[#171624] px-4 py-3.5 text-sm text-white outline-none transition-all duration-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/10";
 

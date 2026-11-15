@@ -9,7 +9,7 @@ import PersonalInfo from "../components/registration/PersonalInfo";
 import AcademicInfo from "../components/registration/AcademicInfo";
 import ProjectInfo from "../components/registration/ProjectInfo";
 import TeamInfo from "../components/registration/TeamInfo";
-
+import { useEffect } from "react";
 import {
   registrationSchema,
   registrationStepSchemas,
@@ -56,7 +56,7 @@ const Registration = () => {
     setValue,
     setError,
     clearErrors,
-    reset,  
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(registrationSchema),
@@ -70,15 +70,25 @@ const Registration = () => {
   });
 
   const teamSize = watch("teamSize");
+  useEffect(() => {
+    console.log("currentStep updated:", currentStep);
+  }, [currentStep]);
 
   // Validate only the current step
   const handleNext = () => {
+    console.log("Continue clicked. Current step:", currentStep);
+
     const currentSchema = registrationStepSchemas[currentStep];
     const result = currentSchema.safeParse(getValues());
+
+    console.log("Step validation result:", result.success);
+    console.log("Step data:", getValues());
 
     clearErrors(stepFields[currentStep]);
 
     if (!result.success) {
+      console.log("Validation errors:", result.error.issues);
+
       result.error.issues.forEach((issue) => {
         const fieldName = issue.path.join(".");
 
@@ -93,6 +103,7 @@ const Registration = () => {
       return;
     }
 
+    console.log("Moving to next step...");
     setCurrentStep((previous) => previous + 1);
   };
 
@@ -102,6 +113,10 @@ const Registration = () => {
   };
 
   const onSubmit = async (data) => {
+    console.log("🔥 onSubmit called!");
+
+    if (currentStep !== 3) return;
+
     try {
       setSubmissionError("");
       setSubmissionSuccess("");
@@ -119,15 +134,16 @@ const Registration = () => {
         prototypeLink: data.prototypeLink,
         demoVideoLink: data.demoVideoLink || "",
         teamSize: Number(data.teamSize),
-
         teamMembers: (data.teamMembers || []).map((member) => ({
           memberName: member.name.trim(),
           memberEmail: member.email.trim().toLowerCase(),
         })),
       };
 
-      const result = await registerHackathon(registrationData);
+      console.log("FINAL REGISTRATION DATA:", registrationData);
 
+      const result = await registerHackathon(registrationData);
+      console.log("FINAL REGISTRATION DATA:", registrationData);
       if (!result.success) {
         throw new Error(result.message || "Registration failed");
       }
@@ -135,8 +151,9 @@ const Registration = () => {
       setSubmissionSuccess(
         result.message || "Hackathon registration successful!",
       );
+
       reset(defaultValues);
-setCurrentStep(0);
+      setCurrentStep(0);
     } catch (error) {
       setSubmissionError(
         error.response?.data?.message ||
@@ -145,8 +162,6 @@ setCurrentStep(0);
       );
     }
   };
-
-
 
   // Move to the step containing the first invalid field
   const handleInvalidSubmit = (formErrors) => {
@@ -165,9 +180,8 @@ setCurrentStep(0);
     <RegistrationLayout>
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 lg:py-12">
         <RegistrationProgress currentStep={currentStep} />
-
         <form
-          onSubmit={handleSubmit(onSubmit, handleInvalidSubmit)}
+          onSubmit={(event) => event.preventDefault()}
           className="mt-8"
           noValidate
         >
@@ -182,17 +196,20 @@ setCurrentStep(0);
           {currentStep === 2 && (
             <ProjectInfo register={register} errors={errors} />
           )}
-
           {currentStep === 3 && (
-            <TeamInfo
-              register={register}
-              errors={errors}
-              teamSize={teamSize}
-              fields={fields}
-              append={append}
-              remove={remove}
-              setValue={setValue}
-            />
+            <>
+              <p className="mb-4 text-white">Debug Step: {currentStep}</p>
+
+              <TeamInfo
+                register={register}
+                errors={errors}
+                teamSize={teamSize}
+                fields={fields}
+                append={append}
+                remove={remove}
+                setValue={setValue}
+              />
+            </>
           )}
 
           {/* Navigation Buttons */}
@@ -210,15 +227,16 @@ setCurrentStep(0);
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/20 transition hover:scale-[1.02]"
+                className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.02]"
               >
                 Continue
               </button>
             ) : (
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit(onSubmit, handleInvalidSubmit)}
                 disabled={isSubmitting}
-                className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/20 transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-7 py-3 text-sm font-semibold text-white shadow-lg transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Submitting..." : "Submit Registration"}
               </button>
