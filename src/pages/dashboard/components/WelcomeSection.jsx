@@ -2,7 +2,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
-
+import { Link } from "react-router-dom";
 const WelcomeSection = () => {
   return (
     <Box
@@ -84,25 +84,27 @@ const WelcomeSection = () => {
           </Typography>
 
           <Button
-            variant="contained"
-            endIcon={<ArrowForwardRoundedIcon />}
-            sx={{
-              px: 3,
-              py: 1.3,
-              borderRadius: "12px",
-              textTransform: "none",
-              fontWeight: 700,
-              bgcolor: "#2563EB",
-              boxShadow: "0 8px 25px rgba(37,99,235,0.25)",
-              "&:hover": {
-                bgcolor: "#1D4ED8",
-                transform: "translateY(-2px)",
-              },
-              transition: "all 0.2s ease",
-            }}
-          >
-            Register Now
-          </Button>
+  component={Link}
+  to="/register"
+  variant="contained"
+  endIcon={<ArrowForwardRoundedIcon />}
+  sx={{
+    px: 3,
+    py: 1.3,
+    borderRadius: "12px",
+    textTransform: "none",
+    fontWeight: 700,
+    bgcolor: "#2563EB",
+    boxShadow: "0 8px 25px rgba(37,99,235,0.25)",
+    "&:hover": {
+      bgcolor: "#1D4ED8",
+      transform: "translateY(-2px)",
+    },
+    transition: "all 0.2s ease",
+  }}
+>
+  Register Now
+</Button>
         </Box>
 
                 <Box
