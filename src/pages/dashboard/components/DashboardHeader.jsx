@@ -1,4 +1,3 @@
-
 import {
   Avatar,
   Box,
@@ -12,10 +11,10 @@ import {
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { Link } from "react-router-dom";
 
 const DashboardHeader = ({ user }) => {
-  const avatarInitial =
-    user?.fullName?.trim()?.charAt(0)?.toUpperCase() || "U";
+  const avatarInitial = user?.fullName?.trim()?.charAt(0)?.toUpperCase() || "U";
 
   return (
     <Box
@@ -30,23 +29,30 @@ const DashboardHeader = ({ user }) => {
       }}
     >
       {/* Page Title */}
-      <Box>
-        <Typography
-          variant="h5"
-          fontWeight={800}
-          color="#F8FAFC"
-          letterSpacing="-0.5px"
-        >
-          Dashboard
-        </Typography>
-      </Box>
-
+    <Box
+  component={Link}
+  to="/"
+  sx={{
+    display: "inline-flex",
+    alignItems: "center",
+    textDecoration: "none",
+    cursor: "pointer",
+  }}
+>
+  <Box
+    component="img"
+    src="/logo.png"
+    alt="Code-A-Nova Logo"
+    sx={{
+      width: { xs: 45, sm: 45 },
+      height: "auto",
+      objectFit: "contain",
+      display: "block",
+    }}
+  />
+</Box>
       {/* Actions */}
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={{ xs: 1, sm: 2 }}
-      >
+      <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 2 }}>
         {/* Search */}
         <TextField
           placeholder="Search anything..."
@@ -77,9 +83,7 @@ const DashboardHeader = ({ user }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchRoundedIcon
-                  sx={{ color: "#64748B", fontSize: 20 }}
-                />
+                <SearchRoundedIcon sx={{ color: "#64748B", fontSize: 20 }} />
               </InputAdornment>
             ),
           }}
@@ -124,11 +128,7 @@ const DashboardHeader = ({ user }) => {
           </Avatar>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Typography
-              fontSize={13}
-              fontWeight={700}
-              color="#F8FAFC"
-            >
+            <Typography fontSize={13} fontWeight={700} color="#F8FAFC">
               {user?.fullName || "User"}
             </Typography>
 

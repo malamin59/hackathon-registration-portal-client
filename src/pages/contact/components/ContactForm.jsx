@@ -20,7 +20,7 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Contact Form Data:", formData);
+    // console.log("Contact Form Data:", formData);
   };
 
   const inputStyles = {

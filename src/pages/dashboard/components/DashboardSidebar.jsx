@@ -50,48 +50,8 @@ const DashboardSidebar = () => {
         p: 3,
       }}
     >
-      {/* Brand */}
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={1.5}
-        mb={5}
-      >
-        <Box
-          sx={{
-            width: 48,
-            height: 48,
-            borderRadius: 2.5,
-            display: "grid",
-            placeItems: "center",
-            bgcolor: "rgba(59,130,246,0.15)",
-            color: "#60A5FA",
-          }}
-        >
-          <CodeRoundedIcon />
-        </Box>
-
-        <Box>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography fontWeight={800} color="#F8FAFC" fontSize={17}>
-              Code-A-Nova
-            </Typography>
-          </Link>
-        </Box>
-      </Stack>
-
-      {/* Navigation */}
-      <Typography
-        fontSize={11}
-        fontWeight={700}
-        color="#64748B"
-        letterSpacing={1.2}
-        mb={2}
-      >
-        WORKSPACE
-      </Typography>
-
-      <Stack spacing={1}>
+        {/* Navigation */}
+           <Stack spacing={1}>
         {navigationItems.map((item) => (
           <Button
             key={item.path}

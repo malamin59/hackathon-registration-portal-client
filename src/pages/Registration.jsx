@@ -71,18 +71,18 @@ const Registration = () => {
 
   const teamSize = watch("teamSize");
   useEffect(() => {
-    console.log("currentStep updated:", currentStep);
+    // console.log("currentStep updated:", currentStep);
   }, [currentStep]);
 
   // Validate only the current step
   const handleNext = () => {
-    console.log("Continue clicked. Current step:", currentStep);
+    // console.log("Continue clicked. Current step:", currentStep);
 
     const currentSchema = registrationStepSchemas[currentStep];
     const result = currentSchema.safeParse(getValues());
 
-    console.log("Step validation result:", result.success);
-    console.log("Step data:", getValues());
+    // console.log("Step validation result:", result.success);
+    // console.log("Step data:", getValues());
 
     clearErrors(stepFields[currentStep]);
 
@@ -103,7 +103,7 @@ const Registration = () => {
       return;
     }
 
-    console.log("Moving to next step...");
+    // console.log("Moving to next step...");
     setCurrentStep((previous) => previous + 1);
   };
 
@@ -113,7 +113,7 @@ const Registration = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log("🔥 onSubmit called!");
+    console.log("onSubmit called!");
 
     if (currentStep !== 3) return;
 
@@ -140,10 +140,10 @@ const Registration = () => {
         })),
       };
 
-      console.log("FINAL REGISTRATION DATA:", registrationData);
+      // console.log("FINAL REGISTRATION DATA:", registrationData);
 
       const result = await registerHackathon(registrationData);
-      console.log("FINAL REGISTRATION DATA:", registrationData);
+      // console.log("FINAL REGISTRATION DATA:", registrationData);
       if (!result.success) {
         throw new Error(result.message || "Registration failed");
       }
