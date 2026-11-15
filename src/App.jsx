@@ -7,7 +7,7 @@ import theme from "./styles/theme";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
 import Signup from "./pages/auth/Signup";
-import Login from "./pages/auth/login";
+import Login from "./pages/auth/Login";
 import VerifyOTP from "./pages/auth/VerifyOTP";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Registration from "./pages/Registration";

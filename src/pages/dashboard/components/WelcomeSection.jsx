@@ -105,7 +105,7 @@ const WelcomeSection = () => {
           </Button>
         </Box>
 
-        <Box
+                <Box
           sx={{
             display: { xs: "none", md: "flex" },
             width: 150,

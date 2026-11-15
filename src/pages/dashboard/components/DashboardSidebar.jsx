@@ -1,11 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
 
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import CodeRoundedIcon from "@mui/icons-material/CodeRounded";
+
+import useAuth from "../../../context/useAuth";
 
 const navigationItems = [
   {
@@ -21,6 +30,14 @@ const navigationItems = [
 ];
 
 const DashboardSidebar = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
+
   return (
     <Box
       sx={{
@@ -34,7 +51,12 @@ const DashboardSidebar = () => {
       }}
     >
       {/* Brand */}
-      <Stack direction="row" alignItems="center" spacing={1.5} mb={5}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={1.5}
+        mb={5}
+      >
         <Box
           sx={{
             width: 48,
@@ -50,9 +72,9 @@ const DashboardSidebar = () => {
         </Box>
 
         <Box>
-          <Link to={'/'}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Typography fontWeight={800} color="#F8FAFC" fontSize={17}>
-              Code-A-Nova{" "}
+              Code-A-Nova
             </Typography>
           </Link>
         </Box>
@@ -109,18 +131,23 @@ const DashboardSidebar = () => {
 
       <Box sx={{ flexGrow: 1, minHeight: 50 }} />
 
-      <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 2 }} />
+      <Divider
+        sx={{
+          borderColor: "rgba(255,255,255,0.08)",
+          mb: 2,
+        }}
+      />
 
       {/* Logout */}
       <Button
         startIcon={<LogoutRoundedIcon />}
-        onClick={() => console.log("Logout clicked")}
+        onClick={handleLogout}
         sx={{
           justifyContent: "flex-start",
           px: 2,
           py: 1.4,
           borderRadius: 2,
-          color: "#94A3B8",
+          color: "#FCA5A5",
           textTransform: "none",
           fontWeight: 600,
           "&:hover": {
@@ -132,7 +159,12 @@ const DashboardSidebar = () => {
         Logout
       </Button>
 
-      <Typography color="#475569" fontSize={11} textAlign="center" mt={3}>
+      <Typography
+        color="#475569"
+        fontSize={11}
+        textAlign="center"
+        mt={3}
+      >
         © 2026 Code-A-Nova
       </Typography>
     </Box>
