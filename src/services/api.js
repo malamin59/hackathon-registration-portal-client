@@ -7,7 +7,7 @@ const api = axios.create({
   },
   timeout: 15000,
 });
-
+console.log("API BASE URL:", import.meta.env.VITE_API_URL);
 // Attach JWT token to authenticated requests
 api.interceptors.request.use(
   (config) => {
