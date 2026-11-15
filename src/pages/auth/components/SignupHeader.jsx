@@ -1,4 +1,3 @@
-
 import { Box, Typography } from "@mui/material";
 
 const SignupHeader = () => {
@@ -11,6 +10,7 @@ const SignupHeader = () => {
           fontWeight: 500,
           letterSpacing: "-0.5px",
           mb: 1,
+          textAlign: "center",
         }}
       >
         Create Account
@@ -23,11 +23,11 @@ const SignupHeader = () => {
           lineHeight: 1.7,
           maxWidth: 300,
           mx: "auto",
+          mb:2,
+           textAlign: "center",
         }}
       >
-        Create your Code-A-Nova account and start
-        your journey. Build, innovate and showcase
-        your skills with us.
+        Join Code-A-Nova and showcase your skills through innovation and collaboration.
       </Typography>
     </Box>
   );

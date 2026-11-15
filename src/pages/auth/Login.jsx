@@ -6,19 +6,23 @@ import LoginForm from "./components/LoginForm";
 const Login = () => {
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        overflow: "hidden",
-        bgcolor: "#080808",
-        px: 2,
-        py: 5,
-        isolation: "isolate",
-      }}
-    >
+  sx={{
+    minHeight: {
+      xs: "calc(100dvh - 132px)",
+      sm: "100vh",
+    },
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    overflow: "hidden",
+    bgcolor: "#080808",
+    px: 2,
+    py: 5,
+    isolation: "isolate",
+  }}
+>
       {/* Background Glow */}
       <Box
         sx={{

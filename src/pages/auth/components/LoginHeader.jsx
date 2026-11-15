@@ -1,4 +1,3 @@
-
 import { Box, Typography } from "@mui/material";
 
 const LoginHeader = () => {
@@ -11,6 +10,7 @@ const LoginHeader = () => {
           fontWeight: 500,
           letterSpacing: "-0.5px",
           mb: 1,
+          textAlign: "center",
         }}
       >
         Log in
@@ -23,11 +23,11 @@ const LoginHeader = () => {
           lineHeight: 1.7,
           maxWidth: 300,
           mx: "auto",
+          textAlign: "center",
+          mb: 1
         }}
       >
-        Log in to your account and seamlessly continue
-        managing your projects, ideas, and progress just
-        where you left off.
+       Welcome back! Log in to access your account and continue where you left off
       </Typography>
     </Box>
   );

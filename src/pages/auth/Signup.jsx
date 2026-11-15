@@ -1,4 +1,3 @@
-
 import { Box, Container, Paper, Typography } from "@mui/material";
 
 import SignupHeader from "./components/SignupHeader";
@@ -8,7 +7,11 @@ const Signup = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: {
+          xs: "calc(100dvh - 132px)",
+          sm: "100vh",
+        },
+        boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
