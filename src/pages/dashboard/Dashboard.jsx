@@ -1,7 +1,8 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
+  Alert,
   Box,
   Container,
   Drawer,
@@ -17,9 +18,15 @@ import DashboardStats from "./components/DashboardStats";
 import ProfileCard from "./components/ProfileCard";
 import RegistrationCard from "./components/RegistrationCard";
 
+import { getCurrentUser } from "../../services/userService";
+
 const Dashboard = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [profileError, setProfileError] = useState("");
 
+  // Mobile menu handlers
   const handleMenuOpen = () => {
     setMobileMenuOpen(true);
   };
@@ -27,6 +34,35 @@ const Dashboard = () => {
   const handleMenuClose = () => {
     setMobileMenuOpen(false);
   };
+
+  // Fetch logged-in user profile
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setProfileLoading(true);
+        setProfileError("");
+
+        const result = await getCurrentUser();
+
+        if (result.success) {
+          setUser(result.data);
+        } else {
+          setProfileError(
+            result.message || "Failed to load profile"
+          );
+        }
+      } catch (error) {
+        setProfileError(
+          error.response?.data?.message ||
+          "Unable to load profile"
+        );
+      } finally {
+        setProfileLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <Box
@@ -94,16 +130,26 @@ const Dashboard = () => {
             px: { xs: 2, md: 4 },
           }}
         >
-          <DashboardHeader onMenuClick={handleMenuOpen} />
+          <DashboardHeader user={user} onMenuClick={handleMenuOpen} />
 
+          {/* Welcome Section */}
           <Box sx={{ mt: 4 }}>
             <WelcomeSection />
           </Box>
 
+          {/* Dashboard Statistics */}
           <Box sx={{ mt: 4 }}>
             <DashboardStats />
           </Box>
 
+          {/* Profile Error */}
+          {profileError && (
+            <Alert severity="error" sx={{ mt: 4 }}>
+              {profileError}
+            </Alert>
+          )}
+
+          {/* Profile & Registration */}
           <Box
             sx={{
               mt: 4,
@@ -115,7 +161,11 @@ const Dashboard = () => {
               gap: 3,
             }}
           >
-            <ProfileCard />
+            <ProfileCard
+              user={user}
+              loading={profileLoading}
+            />
+
             <RegistrationCard />
           </Box>
         </Container>

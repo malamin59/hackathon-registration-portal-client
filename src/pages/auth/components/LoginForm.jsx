@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import {
+  Alert,
   Box,
   Button,
   IconButton,
@@ -20,10 +20,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginSchema from "../schemas/login.schema";
 import { inputStyles } from "./inputStyles";
-
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../../services/authService";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -37,15 +40,40 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("Login Data:", data);
+    try {
+      setError("");
+
+      const result = await loginUser(data);
+
+      if (!result.success) {
+        throw new Error(result.message || "Login failed");
+      }
+
+      const token = result.data?.token;
+
+      if (!token) {
+        throw new Error("Authentication token was not returned.");
+      }
+
+      // Save authentication token
+      localStorage.setItem("token", token);
+
+      // Navigate to dashboard
+      navigate("/dashboard", { replace: true });
+    } catch (error) {
+      setError(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong. Please try again.",
+      );
+    }
   };
-
- 
-
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={1.5}>
+        {/* Error Message */}
+        {error && <Alert severity="error">{error}</Alert>}
         {/* Email */}
         <TextField
           fullWidth
@@ -59,9 +87,7 @@ const LoginForm = () => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailOutlinedIcon
-                    sx={{ fontSize: 16, color: "#666" }}
-                  />
+                  <EmailOutlinedIcon sx={{ fontSize: 16, color: "#666" }} />
                 </InputAdornment>
               ),
             },
@@ -81,17 +107,13 @@ const LoginForm = () => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <LockOutlinedIcon
-                    sx={{ fontSize: 16, color: "#666" }}
-                  />
+                  <LockOutlinedIcon sx={{ fontSize: 16, color: "#666" }} />
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={() =>
-                      setShowPassword((prev) => !prev)
-                    }
+                    onClick={() => setShowPassword((prev) => !prev)}
                     edge="end"
                     size="small"
                     sx={{ color: "#60A5FA" }}

@@ -12,6 +12,8 @@ import VerifyOTP from "./pages/auth/VerifyOTP";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./pages/auth/ProtectedRoute";
+
 
 const App = () => {
   return (
@@ -19,22 +21,33 @@ const App = () => {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/verify-otp" element={<VerifyOTP />} />
+
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Registration />} />
+            <Route
+              path="/register"
+              element={
+                <ProtectedRoute>
+                  <Registration />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-
-            {/* 404 Not Found */}
-          <Route path="*" element={<NotFound/>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
-
-
       </BrowserRouter>
     </ThemeProvider>
   );

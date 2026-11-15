@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import {
+  Alert,
   Box,
   Button,
   IconButton,
@@ -16,16 +17,20 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import signupSchema from "../schemas/signup.schema";
 import { inputStyles } from "./inputStyles";
+import { signupUser } from "../../../services/authService";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [serverError, setServerError] = useState("");
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -41,8 +46,28 @@ const SignupForm = () => {
     },
   });
 
+  // Signup API Integration
   const onSubmit = async (data) => {
-    console.log("Signup Data:", data);
+    try {
+      setServerError("");
+
+      const result = await signupUser(data);
+
+      if (result.success) {
+        navigate("/verify-otp", {
+          state: {
+            userId: result.data.userId,
+            email: result.data.email,
+          },
+        });
+      }
+    } catch (error) {
+      setServerError(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong. Please try again.",
+      );
+    }
   };
 
   const passwordAdornment = (visible, toggle) => ({
@@ -72,6 +97,13 @@ const SignupForm = () => {
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={1.5}>
+        {/* Server Error */}
+        {serverError && (
+          <Alert severity="error" onClose={() => setServerError("")}>
+            {serverError}
+          </Alert>
+        )}
+
         {/* Full Name */}
         <TextField
           fullWidth
@@ -119,7 +151,6 @@ const SignupForm = () => {
           {...register("password")}
           error={!!errors.password}
           helperText={errors.password?.message}
-          className="border-outline-none"
           sx={inputStyles}
           slotProps={{
             input: passwordAdornment(showPassword, () =>

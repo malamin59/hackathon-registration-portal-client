@@ -14,8 +14,8 @@ const navigationItems = [
     icon: <DashboardRoundedIcon />,
   },
   {
-    label: "My Registration",
-    path: "/registration",
+    label: "Registration Now",
+    path: "/register",
     icon: <AppRegistrationRoundedIcon />,
   },
 ];

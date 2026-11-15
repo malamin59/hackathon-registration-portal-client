@@ -1,9 +1,5 @@
-
 import { useState } from "react";
-import {
-  useForm,
-  useFieldArray,
-} from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import RegistrationLayout from "../components/registration/RegistrationLayout";
@@ -18,6 +14,7 @@ import {
   registrationSchema,
   registrationStepSchemas,
 } from "../components/registration/validation/registrationSchema";
+import { registerHackathon } from "../services/hackathonService";
 
 const defaultValues = {
   fullName: "",
@@ -48,7 +45,8 @@ const stepFields = [
 
 const Registration = () => {
   const [currentStep, setCurrentStep] = useState(0);
-
+  const [submissionError, setSubmissionError] = useState("");
+  const [submissionSuccess, setSubmissionSuccess] = useState("");
   const {
     register,
     handleSubmit,
@@ -58,6 +56,7 @@ const Registration = () => {
     setValue,
     setError,
     clearErrors,
+    reset,  
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(registrationSchema),
@@ -65,11 +64,7 @@ const Registration = () => {
     mode: "onTouched",
   });
 
-  const {
-    fields,
-    append,
-    remove,
-  } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "teamMembers",
   });
@@ -106,19 +101,59 @@ const Registration = () => {
     setCurrentStep((previous) => Math.max(previous - 1, 0));
   };
 
-  // Final form submission
   const onSubmit = async (data) => {
-    console.log("Registration Data:", data);
+    try {
+      setSubmissionError("");
+      setSubmissionSuccess("");
 
-    // Next step: connect this form with the backend API.
+      const registrationData = {
+        fullName: data.fullName,
+        mobileNumber: data.mobile,
+        collegeName: data.college,
+        course: data.course,
+        branch: data.branch,
+        yearOfStudy: data.year,
+        domain: data.domain,
+        projectName: data.projectName,
+        pptLink: data.pptLink,
+        prototypeLink: data.prototypeLink,
+        demoVideoLink: data.demoVideoLink || "",
+        teamSize: Number(data.teamSize),
+
+        teamMembers: (data.teamMembers || []).map((member) => ({
+          memberName: member.name.trim(),
+          memberEmail: member.email.trim().toLowerCase(),
+        })),
+      };
+
+      const result = await registerHackathon(registrationData);
+
+      if (!result.success) {
+        throw new Error(result.message || "Registration failed");
+      }
+
+      setSubmissionSuccess(
+        result.message || "Hackathon registration successful!",
+      );
+      reset(defaultValues);
+setCurrentStep(0);
+    } catch (error) {
+      setSubmissionError(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong. Please try again.",
+      );
+    }
   };
+
+
 
   // Move to the step containing the first invalid field
   const handleInvalidSubmit = (formErrors) => {
     const firstError = Object.keys(formErrors)[0];
 
     const errorStep = stepFields.findIndex((fields) =>
-      fields.includes(firstError)
+      fields.includes(firstError),
     );
 
     if (errorStep !== -1) {
@@ -137,24 +172,15 @@ const Registration = () => {
           noValidate
         >
           {currentStep === 0 && (
-            <PersonalInfo
-              register={register}
-              errors={errors}
-            />
+            <PersonalInfo register={register} errors={errors} />
           )}
 
           {currentStep === 1 && (
-            <AcademicInfo
-              register={register}
-              errors={errors}
-            />
+            <AcademicInfo register={register} errors={errors} />
           )}
 
           {currentStep === 2 && (
-            <ProjectInfo
-              register={register}
-              errors={errors}
-            />
+            <ProjectInfo register={register} errors={errors} />
           )}
 
           {currentStep === 3 && (
@@ -199,6 +225,24 @@ const Registration = () => {
             )}
           </div>
         </form>
+
+        {submissionError && (
+          <div
+            role="alert"
+            className="mb-5 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400"
+          >
+            {submissionError}
+          </div>
+        )}
+
+        {submissionSuccess && (
+          <div
+            role="status"
+            className="mb-5 rounded-xl border border-green-500/20 bg-green-500/10 p-4 text-sm text-green-400"
+          >
+            {submissionSuccess}
+          </div>
+        )}
       </div>
     </RegistrationLayout>
   );

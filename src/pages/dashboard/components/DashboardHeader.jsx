@@ -13,7 +13,10 @@ import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneR
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ user }) => {
+  const avatarInitial =
+    user?.fullName?.trim()?.charAt(0)?.toUpperCase() || "U";
+
   return (
     <Box
       sx={{
@@ -35,10 +38,6 @@ const DashboardHeader = () => {
           letterSpacing="-0.5px"
         >
           Dashboard
-        </Typography>
-
-        <Typography fontSize={13} color="#64748B" mt={0.5}>
-          Home / Overview
         </Typography>
       </Box>
 
@@ -121,7 +120,7 @@ const DashboardHeader = () => {
               fontSize: 14,
             }}
           >
-            A
+            {avatarInitial}
           </Avatar>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -130,7 +129,7 @@ const DashboardHeader = () => {
               fontWeight={700}
               color="#F8FAFC"
             >
-              Al Amin
+              {user?.fullName || "User"}
             </Typography>
 
             <Typography fontSize={11} color="#64748B">
